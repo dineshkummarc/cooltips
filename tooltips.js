@@ -44,10 +44,6 @@ Tooltip.prototype = {
 	},
 	setOptions: function(options) {
 		this.options = {
-			backgroundColor: '#999', // Default background color
-			borderColor: '#666', // Default border color
-			textColor: '', // Default text color (use CSS value)
-			textShadowColor: '', // Default text shadow color (use CSS value)
 			maxWidth: 250,	// Default tooltip width
 			align: "left", // Default align
 			delay: 250, // Default delay before tooltip appears in ms
@@ -87,40 +83,33 @@ Tooltip.prototype = {
 		var arrow = new Element("div", { className: "xarrow" }).insert('<b class="a1"></b><b class="a2"></b><b class="a3"></b><b class="a4"></b><b class="a5"></b><b class="a6"></b>');
 		
 		var top = new Element("div", { className: "xtop" }).insert(
-			new Element("div", { className: "xb1", style: "background-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb1" })
 		).insert(
-			new Element("div", { className: "xb2", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb2" })
 		).insert(
-			new Element("div", { className: "xb3", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb3" })
 		).insert(
-			new Element("div", { className: "xb4", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb4" })
 		);
 		
 		var bottom = new Element("div", { className: "xbottom" }).insert(
-			new Element("div", { className: "xb4", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb4" })
 		).insert(
-			new Element("div", { className: "xb3", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb3" })
 		).insert(
-			new Element("div", { className: "xb2", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb2" })
 		).insert(
-			new Element("div", { className: "xb1", style:"background-color:" + this.options.borderColor + ";" })
+			new Element("div", { className: "xb1" })
 		);
 		
-		var content = new Element("div", { className: "xboxcontent", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + 
-			((this.options.textColor != '') ? "; color:" + this.options.textColor : "") + 
-			((this.options.textShadowColor != '') ? "; text-shadow:2px 2px 0" + this.options.textShadowColor + ";" : "") }).update(this.content);
+		var content = new Element("div", { className: "xboxcontent" }).update(this.content);
 			
 		// Building and injecting tooltip into DOM
 		this.tooltip.insert(arrow).insert(top).insert(content).insert(bottom);
 		$(document.body).insert({'top':this.tooltip});
 		
 		// Coloring arrow element
-		this.tooltip.select('.xarrow b').each(function(el){
-			if(!el.hasClassName('a1'))
-				el.setStyle({backgroundColor: this.options.backgroundColor, borderColor: this.options.borderColor });
-			else
-				el.setStyle({backgroundColor: this.options.borderColor });
-		}.bind(this));
+		this.tooltip.select('.xarrow b').each(function(el){}.bind(this));
 		
 		Element.extend(this.tooltip); // IE needs element to be manually extended
 		this.options.width = this.tooltip.getWidth() + 1; // Quick fix for Firefox 3
